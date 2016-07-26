@@ -1,0 +1,2 @@
+# LabelEx
+MFC LabelEx Control
