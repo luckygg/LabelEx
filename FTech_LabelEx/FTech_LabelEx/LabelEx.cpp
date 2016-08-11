@@ -48,6 +48,12 @@ void CLabelEx::PreSubclassWindow()
 	CWnd::PreSubclassWindow();
 }
 
+BOOL CLabelEx::CreateContol(CWnd* pWnd, CRect rcSize, UINT ID)
+{
+	if (pWnd == NULL) return false;
+
+	return CWnd::Create(NULL,NULL,WS_CHILD|WS_VISIBLE, rcSize, pWnd, ID );
+}
 
 BEGIN_MESSAGE_MAP(CLabelEx, CWnd)
 	ON_WM_PAINT()

@@ -21,6 +21,7 @@ CFTech_LabelExDlg::CFTech_LabelExDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CFTech_LabelExDlg::IDD, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_plbTest = NULL;
 }
 
 void CFTech_LabelExDlg::DoDataExchange(CDataExchange* pDX)
@@ -34,6 +35,7 @@ BEGIN_MESSAGE_MAP(CFTech_LabelExDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BTN_TIMER, &CFTech_LabelExDlg::OnBnClickedBtnTimer)
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -54,6 +56,10 @@ BOOL CFTech_LabelExDlg::OnInitDialog()
 
 	srand((unsigned)time(NULL));
 
+	m_plbTest = new CLabelEx();
+	m_plbTest->CreateContol(this,CRect(200,75,320,120),2020);
+	m_plbTest->SetColorBkg(255,128,128,128);
+	m_plbTest->SetText(L"Push Button");
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -136,5 +142,18 @@ void CFTech_LabelExDlg::OnBnClickedBtnTimer()
 		KillTimer(100);
 
 		SetDlgItemText(IDC_BTN_TIMER, L"Start");
+	}
+}
+
+
+void CFTech_LabelExDlg::OnDestroy()
+{
+	CDialogEx::OnDestroy();
+
+	if (m_plbTest != NULL)
+	{
+		m_plbTest->DestroyWindow();
+		delete m_plbTest;
+		m_plbTest = NULL;
 	}
 }
