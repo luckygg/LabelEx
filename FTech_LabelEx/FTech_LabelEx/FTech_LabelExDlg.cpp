@@ -28,6 +28,7 @@ void CFTech_LabelExDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LB_TEST, m_lbTest);
+	DDX_Control(pDX, IDC_LB_TEST2, m_lbTest2);
 }
 
 BEGIN_MESSAGE_MAP(CFTech_LabelExDlg, CDialogEx)
@@ -53,6 +54,10 @@ BOOL CFTech_LabelExDlg::OnInitDialog()
 	m_lbTest.SetAlignTextLB();
 	m_lbTest.LoadImageFromResource(IDB_PNG1, true);
 	m_lbTest.SetSizeImage(10,0,60,60);
+
+	m_lbTest.SetAlignTextCM();
+	m_lbTest.SetColorBkg(255,128,128,128);
+	m_lbTest.SetColorBorder(255,100,100,100);
 
 	srand((unsigned)time(NULL));
 
@@ -121,6 +126,8 @@ void CFTech_LabelExDlg::OnTimer(UINT_PTR nIDEvent)
 		m_lbTest.SetOffsetText(r,0);
 
 		m_lbTest.SetSizeImage(r2,0,60,60);
+
+		OnUpdateTime();
 	}
 
 	CDialogEx::OnTimer(nIDEvent);
@@ -133,8 +140,7 @@ void CFTech_LabelExDlg::OnBnClickedBtnTimer()
 
 	if (caption == L"Start")
 	{
-		SetTimer(100,100,NULL);
-
+		SetTimer(100,30,NULL);
 		SetDlgItemText(IDC_BTN_TIMER, L"Stop");
 	}
 	else
@@ -156,4 +162,15 @@ void CFTech_LabelExDlg::OnDestroy()
 		delete m_plbTest;
 		m_plbTest = NULL;
 	}
+}
+
+void CFTech_LabelExDlg::OnUpdateTime()
+{
+	CTime time;
+	time = CTime::GetCurrentTime();
+
+	CString strTime=L"";
+	strTime.Format(L"%02d:%02d:%02d",time.GetHour(),time.GetMinute(),time.GetSecond());
+
+	m_lbTest2.SetText(strTime);
 }

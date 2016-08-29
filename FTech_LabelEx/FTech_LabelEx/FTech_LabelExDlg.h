@@ -31,7 +31,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CLabelEx m_lbTest;
+	CLabelEx m_lbTest2;
 	CLabelEx* m_plbTest; 
+	void OnUpdateTime();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnBnClickedBtnTimer();
 	afx_msg void OnDestroy();

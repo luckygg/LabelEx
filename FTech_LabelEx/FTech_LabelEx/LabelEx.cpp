@@ -26,6 +26,8 @@ CLabelEx::CLabelEx()
 
 	m_pBmpImage = NULL;
 
+	m_strText		= L"";
+
 	m_rcImage = Rect(0,0,0,0);
 }
 
@@ -150,9 +152,6 @@ void CLabelEx::DrawText(Graphics *pG)
 {
 	CRect rect;
 	GetClientRect(&rect);
-
-	CString text = L"";
-	GetWindowText(text);
 	
 	FontFamily fontptroll(L"Arial");
 	Gdiplus::Font font(&fontptroll, m_fSizeText, FontStyleRegular, UnitPixel);
@@ -164,23 +163,7 @@ void CLabelEx::DrawText(Graphics *pG)
 	SolidBrush brs(m_clrText);
 	RectF rc((float)rect.left+m_nOffsetTextX, (float)rect.top+m_nOffsetTextY, (float)rect.Width(),(float)rect.Height());
 	
-	pG->DrawString(text,text.GetLength(),&font,rc,&formatAlign,&brs);
-}
-
-CString CLabelEx::GetText()
-{
-	CString text = L"";
-	GetWindowText(text);
-
-	return text;
-}
-
-int CLabelEx::GetTextInt()
-{
-	CString text = L"";
-	GetWindowText(text);
-
-	return _ttoi(text);
+	pG->DrawString(m_strText,m_strText.GetLength(),&font,rc,&formatAlign,&brs);
 }
 
 bool CLabelEx::LoadImageFromFile(CString strPath)

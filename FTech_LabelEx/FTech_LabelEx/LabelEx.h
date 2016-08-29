@@ -23,9 +23,9 @@ public :
 	void SetEnable(bool bEnable) { m_bEnable = bEnable; Invalidate(); }
 	
 	//----- Set & Get Text -----//
-	void SetText(CString strText) { SetWindowText(strText); Invalidate(); }
-	CString GetText();
-	int		GetTextInt();
+	void SetText(CString strText) { m_strText = strText; Invalidate(); }
+	CString GetText() { return m_strText; }
+	int		GetTextInt() { return _ttoi(m_strText); }
 
 	//----- Set Offset -----//
 	void SetOffsetText	(int nX, int nY) { m_nOffsetTextX = nX; m_nOffsetTextY = nY; Invalidate(); }
@@ -68,6 +68,7 @@ private :
 	Color	m_clrBorder;
 	Rect	m_rcImage;
 	Bitmap* m_pBmpImage;
+	CString m_strText;
 
 private :
 	void DrawBorder(Graphics *pG);
