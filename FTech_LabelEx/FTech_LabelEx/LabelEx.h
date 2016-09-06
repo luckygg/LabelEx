@@ -5,6 +5,9 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
+// Last Update : 2016-09-06 13:52
+// Modified by William Kim
+//----------------------------------------------------------
 
 // CLabelEx
 class CLabelEx : public CWnd
@@ -24,6 +27,8 @@ public :
 	
 	//----- Set & Get Text -----//
 	void SetText(CString strText) { m_strText = strText; Invalidate(); }
+	void SetTextInt(int nValue) { m_strText.Format(L"%d", nValue); Invalidate(); }
+	void SetTextDouble(double dValue) { m_strText.Format(L"%.3f", dValue); Invalidate(); }
 	CString GetText() { return m_strText; }
 	int		GetTextInt() { return _ttoi(m_strText); }
 
