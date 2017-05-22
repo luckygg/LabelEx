@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
-// Last Update : 2016-09-06 16:52
+// Last Update : 2017-05-22 15:17
 // Modified by William Kim
 //----------------------------------------------------------
 
@@ -27,8 +27,8 @@ public :
 	
 	//----- Set & Get Text -----//
 	void SetText(CString strText) { m_strText = strText; Invalidate(); }
-	void SetTextInt(int nValue) { m_strText.Format(L"%d", nValue); Invalidate(); }
-	void SetTextDouble(double dValue) { m_strText.Format(L"%.3f", dValue); Invalidate(); }
+	void SetTextInt(int nValue) { m_strText.Format(_T("%d"), nValue); Invalidate(); }
+	void SetTextDouble(double dValue) { m_strText.Format(_T("%.3f"), dValue); Invalidate(); }
 	CString GetText() { return m_strText; }
 	int		GetTextInt() { return _ttoi(m_strText); }
 

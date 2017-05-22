@@ -64,7 +64,7 @@ BOOL CFTech_LabelExDlg::OnInitDialog()
 	m_plbTest = new CLabelEx();
 	m_plbTest->CreateContol(this,CRect(200,75,320,120),2020);
 	m_plbTest->SetColorBkg(255,128,128,128);
-	m_plbTest->SetText(L"Push Button");
+	m_plbTest->SetText(_T("Push Button"));
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -135,19 +135,19 @@ void CFTech_LabelExDlg::OnTimer(UINT_PTR nIDEvent)
 
 void CFTech_LabelExDlg::OnBnClickedBtnTimer()
 {
-	CString caption = L"";
+	CString caption = _T("");
 	GetDlgItemText(IDC_BTN_TIMER, caption);
 
-	if (caption == L"Start")
+	if (caption == _T("Start"))
 	{
 		SetTimer(100,30,NULL);
-		SetDlgItemText(IDC_BTN_TIMER, L"Stop");
+		SetDlgItemText(IDC_BTN_TIMER, _T("Stop"));
 	}
 	else
 	{
 		KillTimer(100);
 
-		SetDlgItemText(IDC_BTN_TIMER, L"Start");
+		SetDlgItemText(IDC_BTN_TIMER, _T("Start"));
 	}
 }
 
@@ -169,8 +169,8 @@ void CFTech_LabelExDlg::OnUpdateTime()
 	CTime time;
 	time = CTime::GetCurrentTime();
 
-	CString strTime=L"";
-	strTime.Format(L"%02d:%02d:%02d",time.GetHour(),time.GetMinute(),time.GetSecond());
+	CString strTime=_T("");
+	strTime.Format(_T("%02d:%02d:%02d"),time.GetHour(),time.GetMinute(),time.GetSecond());
 
 	m_lbTest2.SetText(strTime);
 }
