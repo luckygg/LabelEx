@@ -5,8 +5,8 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
-// Last Update : 2017-05-22 15:17
-// Modified by William Kim
+// Last Update : 2017-08-29 16:25
+// Fainstec co., Ltd.
 //----------------------------------------------------------
 
 // CLabelEx
@@ -28,9 +28,10 @@ public :
 	//----- Set & Get Text -----//
 	void SetText(CString strText) { m_strText = strText; Invalidate(); }
 	void SetTextInt(int nValue) { m_strText.Format(_T("%d"), nValue); Invalidate(); }
-	void SetTextDouble(double dValue) { m_strText.Format(_T("%.3f"), dValue); Invalidate(); }
+	void SetTextDouble(double dValue, int nDigit);
 	CString GetText() { return m_strText; }
 	int		GetTextInt() { return _ttoi(m_strText); }
+	double GetTextDouble() { return _ttof(m_strText); }
 
 	//----- Set Offset -----//
 	void SetOffsetText	(int nX, int nY) { m_nOffsetTextX = nX; m_nOffsetTextY = nY; Invalidate(); }
@@ -38,7 +39,7 @@ public :
 	//----- Set Size -----//
 	void SetSizeText	(float fSize) { m_fSizeText		= fSize; }
 	void SetSizeBorder	(float fSize) { m_fSizeBorder	= fSize; }
-	void SetSizeImage	(int nLeft, int nTop, int nWidth, int nHeight) { m_rcImage = Rect(nLeft, nTop, nWidth, nHeight); Invalidate(); }
+	void SetRectImage	(int nLeft, int nTop, int nWidth, int nHeight) { m_rcImage = Rect(nLeft, nTop, nWidth, nHeight); Invalidate(); }
 
 	//----- Set Color -----//
 	void SetColorBkg	(int nA, int nR, int nG, int nB) { m_clrBkg		= Color(nA, nR, nG, nB); Invalidate(); }
@@ -59,9 +60,12 @@ public :
 	void SetAlignTextCB() { m_nTextAlign1 = 1; m_nTextAlign2 = 2; Invalidate(); }
 	void SetAlignTextRB() { m_nTextAlign1 = 2; m_nTextAlign2 = 2; Invalidate(); }
 
+	//----- Set Font -----//
+	bool SetFontText(CString strFont);
+
 	//----- Set Image -----//
-	bool LoadImageFromFile(CString strPath);
-	bool LoadImageFromResource(UINT ID, bool bPNG);
+	bool LoadImgFromPath(CString strPath);
+	bool LoadImgFromResource(UINT ID, bool bPNG);
 
 private :
 	bool	m_bEnable;
@@ -77,6 +81,7 @@ private :
 	Rect	m_rcImage;
 	Bitmap* m_pBmpImage;
 	CString m_strText;
+	CString m_strFont;
 
 private :
 	void DrawBorder(Graphics *pG);

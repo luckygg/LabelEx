@@ -4,7 +4,9 @@
 #include "stdafx.h"
 #include "LabelEx.h"
 
-
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 // CLabelEx
 IMPLEMENT_DYNAMIC(CLabelEx, CWnd)
 
@@ -20,13 +22,11 @@ CLabelEx::CLabelEx()
 	m_fSizeText		= 20;
 	m_nOffsetTextX	= 0;
 	m_nOffsetTextY	= 0;
-
 	m_nTextAlign1	= 1;
 	m_nTextAlign2	= 1;
-
-	m_pBmpImage = NULL;
-
+	m_pBmpImage		= NULL;
 	m_strText		= _T("");
+	m_strFont		= _T("Arial");
 
 	m_rcImage = Rect(0,0,0,0);
 }
@@ -153,7 +153,7 @@ void CLabelEx::DrawText(Graphics *pG)
 	CRect rect;
 	GetClientRect(&rect);
 	
-	FontFamily fontptroll(_T("Arial"));
+	FontFamily fontptroll(m_strFont);
 	Gdiplus::Font font(&fontptroll, m_fSizeText, FontStyleRegular, UnitPixel);
 	
 	StringFormat formatAlign;
@@ -166,7 +166,7 @@ void CLabelEx::DrawText(Graphics *pG)
 	pG->DrawString(m_strText,m_strText.GetLength(),&font,rc,&formatAlign,&brs);
 }
 
-bool CLabelEx::LoadImageFromFile(CString strPath)
+bool CLabelEx::LoadImgFromPath(CString strPath)
 {
 	if (IsFileExist(strPath) == false) return false;
 
@@ -186,7 +186,7 @@ bool CLabelEx::LoadImageFromFile(CString strPath)
 	return true;
 }
 
-bool CLabelEx::LoadImageFromResource(UINT ID, bool bPNG)
+bool CLabelEx::LoadImgFromResource(UINT ID, bool bPNG)
 {
 	if (m_pBmpImage != NULL)
 	{
@@ -289,4 +289,30 @@ void CLabelEx::SetColorText(int nA, COLORREF clrColor)
 
 	m_clrText = Color(nA, r, g, b); 
 	Invalidate();
+}
+
+void CLabelEx::SetTextDouble(double dValue, int nDigit)
+{
+	std::ostringstream ostring;
+	
+	ostring.setf(std::ios::fixed);
+	ostring.precision(nDigit);
+	ostring << dValue <<std::endl;
+	
+	m_strText = (CString)ostring.str().c_str();
+
+	Invalidate();
+}
+
+bool CLabelEx::SetFontText(CString strFont)
+{
+	FontFamily fontFam(strFont);
+	Gdiplus::Status ret = fontFam.GetLastStatus();
+	if (ret != Gdiplus::Ok)
+		return false;
+	
+	m_strFont = strFont;
+
+	Invalidate();
+	return true;
 }

@@ -51,9 +51,13 @@ BOOL CFTech_LabelExDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
+	CRect rect;
+	m_lbTest.GetClientRect(&rect);
+
 	m_lbTest.SetAlignTextLB();
-	m_lbTest.LoadImageFromResource(IDB_PNG1, true);
-	m_lbTest.SetSizeImage(10,0,60,60);
+	m_lbTest.LoadImgFromResource(IDB_PNG1, true);
+	//m_lbTest.SetRectImage(10,0,60,60);
+	m_lbTest.SetRectImage(0,0,0,0);
 
 	m_lbTest.SetAlignTextCM();
 	m_lbTest.SetColorBkg(255,128,128,128);
@@ -65,6 +69,10 @@ BOOL CFTech_LabelExDlg::OnInitDialog()
 	m_plbTest->CreateContol(this,CRect(200,75,320,120),2020);
 	m_plbTest->SetColorBkg(255,128,128,128);
 	m_plbTest->SetText(_T("Push Button"));
+	m_plbTest->LoadImgFromPath(_T("!.png"));
+	m_plbTest->SetRectImage(0,0,50,50);
+
+	bool ret = m_plbTest->SetFontText(_T("±¼¸²"));
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -125,7 +133,7 @@ void CFTech_LabelExDlg::OnTimer(UINT_PTR nIDEvent)
 		m_lbTest.SetColorBorder(g_nA,g_nG,g_nB,g_nR);
 		m_lbTest.SetOffsetText(r,0);
 
-		m_lbTest.SetSizeImage(r2,0,60,60);
+		m_lbTest.SetRectImage(r2,0,60,60);
 
 		OnUpdateTime();
 	}
